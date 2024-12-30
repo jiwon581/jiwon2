@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>index.html</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        .stat{
+            display: flex; justify-content: space-around; text-align: center;
+        }
+        #stat_bar {
+    display: flex;
+    justify-content: space-between;
+    width: 70%; 
+    max-width: 500px; 
+    padding-left: 50px;
+    }
+        #sub_icons{
+            display: flex;             /* 가로로 나열 */
+            justify-content: start;    /* 왼쪽 정렬 */
+            gap: 100px;  
+            font-size: 30px;
+           
+        }
+        .image-container {
+    display: flex;                 /* 플렉스박스 사용 */
+    flex-wrap: wrap;               /* 자동 줄바꿈 */
+    justify-content: space-between; /* 이미지 간격 설정 */
+}
+
+.image-container img {
+    width: 32%;                     /* 각 이미지의 너비 설정 (3개씩 배치되도록) */
+    height: 150px;                  /* 고정 높이 설정 */
+    margin-bottom: 10px;            /* 이미지 간 아래쪽 여백 */
+}
+
+    </style>
+</head>
+<body>
+    <!--헤더-->
+    <div class="header" style="display: flex; gap: 10px;">
+        <img src="logo.png" alt="Logo" class="logo" style="width:100px; height: 40px;">
+        <input type="text" placeholder="검색" 
+            class="search-input" 
+            style="width: 200px; height: 20px; text-align: center; 
+            line-height: 40px; font-size: 16px;">
+
+        &nbsp;
+        <i class="fa-solid fa-house" style="font-size: 20px; color: black;"></i>
+        <i class="fa-solid fa-paper-plane" style="font-size: 20px; color: black;"></i>
+        <i class="fa-regular fa-compass" style="font-size: 20px; color: black;"></i>
+        <i class="fa-regular fa-heart" style="font-size: 20px; color: black;"></i>
+    </div>
+    <hr>
+    <div style="display: flex; gap: 15px; align-items: center;">
+        <img src="profile.jpg" 
+             alt="profile" 
+             id="profileImage" 
+             style="width:90px; height:90px; border-radius:50%; margin-right: 10px;" 
+             onclick="changeImage()">
+
+        <div>
+            <div style="font-size: 20px; color: black;">
+                <span id="userInfo">beautiful_cities</span>
+                <i class="fa-solid fa-gear" style="margin-left: 5px;"></i>
+            </div>
+            <button id="profile_info_button" style="width: 200px; height: 20px;">프로필 편집</button>
+        </div>
+    </div>
+
+    <div>
+        <p>
+            <strong id="userInfo">Beautiful Cities</strong><br>
+            <span id="summery">Travel beautiful cities with our photos</span>
+        </p>
+        <p id="profileDetail">
+            <a href="https://www.beautiful-cities.com">https://www.beautiful-cities.com</a>
+        </p>
+    </div>
+    
+
+    <!--하이라이트-->
+    <div style="display: flex; flex-direction: row; gap: 15px">
+        <div style="display: flex; flex-direction: column; gap: 10px; align-items: center;">
+            <img src="highlight1.jpg" alt="highlight" class="logo" style="width:60px; height:60px; border-radius:50%;">
+            <img src="sunglass.png" style="width:20px; height:20px; border-radius: 50%;">
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 10px; align-items: center;">
+            <img src="highlight2.jpg" alt="highlight" class="logo" style="width:60px; height:60px; border-radius:50%;">
+            <img src="heartface.png" style="width:20px; height:20px; border-radius: 50%;">
+        </div>
+    </div>
+    <!--하이라이트 끝-->
+    
+    <!--팔로워-->
+    <hr>
+    <div id="stat_bar">
+        <div class="stat">
+            게시물<br>
+            113
+        </div>
+        <div class="stat">
+            팔로워<br>
+            930
+        </div>
+        <div class="stat">
+            팔로우<br>
+            591
+        </div>
+    </div>
+    <hr>
+    <div id="sub_icons">
+        <i class="fa-solid fa-table" ></i>
+        <i class="fa-solid fa-film"></i>
+        <i class="fa-regular fa-circle-play"></i>
+        <i class="fa-regular fa-bookmark"></i>
+        <i class="fa-solid fa-user-tag"></i>
+    </div>
+    <!--썸네일 이미지 삽입-->
+    <div class="image-container">
+        <img src="first.jpg" width="200px" height="200px">
+        <img src="second.jpg" width="200px" height="200px">
+        <img src="third.jpg" width="200px" height="200px">
+        <img src="forth.jpg" width="200px" height="200px">
+        <img src="fifth.jpg" width="200px" height="200px">
+        <img src="six.jpg" width="200px" height="200px">
+        <img src="seven.jpg" width="200px" height="200px">
+        <img src="eight.jpg" width="200px" height="200px">
+        <img src="nine.jpg" width="200px" height="200px">
+    </div>
+    
+    <!--스크립트-->
+    <script>
+        var profileEditButton = document.querySelector("#profile_info_button");
+        var userInfo = document.querySelector("#userInfo");
+        var summary = document.querySelector("#summery");
+        var profileDetail = document.querySelector("#profileDetail");
+        var changing = false;
+
+        profileEditButton.onclick = function (e) {
+            if (changing) {
+                var _userInfo = userInfo.querySelector("input").value;
+                var _summary = summary.querySelector("input").value;
+                var _profileDetail = profileDetail.querySelector("input").value;
+
+                userInfo.innerHTML = _userInfo;
+                summary.innerHTML = _summary;
+
+                if (_profileDetail.startsWith("http")) {
+                    _profileDetail = "<a href=" + _profileDetail + ">" + _profileDetail + "</a>";
+                }
+                profileDetail.innerHTML = _profileDetail;
+                e.target.textContent = "프로필 편집";
+                changing = false;
+            } else {
+                var userInfoText = userInfo.textContent;
+                var summaryText = summary.textContent;
+                var profileDetailText = profileDetail.textContent;
+
+                userInfo.innerHTML = '<input value="' + userInfoText + '">';
+                summary.innerHTML = '<input value="' + summaryText + '">';
+                profileDetail.innerHTML = '<input value="' + profileDetailText + '">';
+                e.target.textContent = "프로필 편집 완료";
+                changing = true;
+            }
+        };
+    </script>
+</body>
+</html>
